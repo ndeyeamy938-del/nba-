@@ -612,16 +612,24 @@ export function MatchPredictionModal({
                     JOUEURS - {game?.homeTeam}
                   </label>
                   <div className="grid grid-cols-5 lg:grid-cols-7 gap-1">
-                    {homeRoster.slice(0, 14).filter((player) => !homeMissingPlayers.some((p) => p.id === player.id)).map((player) => (
-                      <Button
-                        key={player.id}
-                        onClick={() => addHomeMissingPlayer(player)}
-                        className="h-6 text-[10px] truncate bg-secondary hover:bg-secondary/80 text-foreground px-1"
-                        variant="outline"
-                      >
-                        {player.full_name}
-                      </Button>
-                    ))}
+                    {homeRoster.slice(0, 14).map((player) => {
+                      const isAbsent = homeMissingPlayers.some((p) => p.id === player.id);
+                      return (
+                        <Button
+                          key={player.id}
+                          onClick={() => addHomeMissingPlayer(player)}
+                          disabled={isAbsent}
+                          className={`h-6 text-[10px] truncate px-1 ${
+                            isAbsent
+                              ? "text-muted-foreground line-through opacity-50 cursor-not-allowed bg-secondary/50"
+                              : "bg-secondary hover:bg-secondary/80 text-foreground"
+                          }`}
+                          variant="outline"
+                        >
+                          {player.full_name}
+                        </Button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -631,16 +639,24 @@ export function MatchPredictionModal({
                     JOUEURS - {game?.awayTeam}
                   </label>
                   <div className="grid grid-cols-5 lg:grid-cols-7 gap-1">
-                    {awayRoster.slice(0, 14).filter((player) => !awayMissingPlayers.some((p) => p.id === player.id)).map((player) => (
-                      <Button
-                        key={player.id}
-                        onClick={() => addAwayMissingPlayer(player)}
-                        className="h-6 text-[10px] truncate bg-secondary hover:bg-secondary/80 text-foreground px-1"
-                        variant="outline"
-                      >
-                        {player.full_name}
-                      </Button>
-                    ))}
+                    {awayRoster.slice(0, 14).map((player) => {
+                      const isAbsent = awayMissingPlayers.some((p) => p.id === player.id);
+                      return (
+                        <Button
+                          key={player.id}
+                          onClick={() => addAwayMissingPlayer(player)}
+                          disabled={isAbsent}
+                          className={`h-6 text-[10px] truncate px-1 ${
+                            isAbsent
+                              ? "text-muted-foreground line-through opacity-50 cursor-not-allowed bg-secondary/50"
+                              : "bg-secondary hover:bg-secondary/80 text-foreground"
+                          }`}
+                          variant="outline"
+                        >
+                          {player.full_name}
+                        </Button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
