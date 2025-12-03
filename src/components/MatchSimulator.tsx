@@ -306,17 +306,17 @@ export function MatchSimulator({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {displayPrediction.home_players.map((player, idx) => {
-                      const isAbsent = homeAbsentIndices.includes(idx);
+                    {displayPrediction.home_players.map((player) => {
+                      const isAbsent = homeAbsentPlayerIds.includes(player.player_id);
                       return (
                         <TableRow
-                          key={`home-${idx}`}
+                          key={`home-${player.player_id}`}
                           className={`transition-colors`}
                         >
                           <TableCell className="w-10">
                             <Checkbox
                               checked={isAbsent}
-                              onCheckedChange={() => toggleHomePlayerAbsent(idx)}
+                              onCheckedChange={() => toggleHomePlayerAbsent(player.player_id)}
                               disabled={isLoading}
                             />
                           </TableCell>
