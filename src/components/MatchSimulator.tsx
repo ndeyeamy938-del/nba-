@@ -407,17 +407,17 @@ export function MatchSimulator({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {displayPrediction.away_players.map((player, idx) => {
-                      const isAbsent = awayAbsentIndices.includes(idx);
+                    {displayPrediction.away_players.map((player) => {
+                      const isAbsent = awayAbsentPlayerIds.includes(player.player_id);
                       return (
                         <TableRow
-                          key={`away-${idx}`}
+                          key={`away-${player.player_id}`}
                           className={`transition-colors`}
                         >
                           <TableCell className="w-10">
                             <Checkbox
                               checked={isAbsent}
-                              onCheckedChange={() => toggleAwayPlayerAbsent(idx)}
+                              onCheckedChange={() => toggleAwayPlayerAbsent(player.player_id)}
                               disabled={isLoading}
                             />
                           </TableCell>
