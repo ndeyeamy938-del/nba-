@@ -47,18 +47,9 @@ export function MatchSimulator({
       nbaApi.getFullMatchPredictionWithAbsents(homeTeamId, awayTeamId),
   });
 
-  // Build list of player IDs from current state and initial data
-  const homeAbsentIds = useMemo(() => {
-    return homeAbsentIndices
-      .map((idx) => initialPrediction?.home_players[idx]?.player_id)
-      .filter((id) => id !== undefined) as number[];
-  }, [homeAbsentIndices, initialPrediction]);
-
-  const awayAbsentIds = useMemo(() => {
-    return awayAbsentIndices
-      .map((idx) => initialPrediction?.away_players[idx]?.player_id)
-      .filter((id) => id !== undefined) as number[];
-  }, [awayAbsentIndices, initialPrediction]);
+  // Use player IDs directly (no index mapping needed)
+  const homeAbsentIds = homeAbsentPlayerIds;
+  const awayAbsentIds = awayAbsentPlayerIds;
 
   // Fetch with absent players (triggers immediately when absent IDs change)
   const { data: prediction, isLoading: predictionLoading, isFetching: isPredictionFetching } = useQuery({
